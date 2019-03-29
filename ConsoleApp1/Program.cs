@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -8,12 +8,15 @@ namespace ConsoleApp1
     class Program
     {
         static GenerationValues generationValues = new GenerationValues("C:\\Test_task\\");
-        private static DateTime userDate;
-        private static DateTime userInput;
+        
+        
 
         static void Main(string[] args)
         {
-            List<DateProfile> listOfDateProfiles = generationValues.ReadDateProfiles();
+			DateTime userDate = new DateTime();
+			//DateTime userInput = new DateTime();
+
+			List<DateProfile> listOfDateProfiles = generationValues.ReadDateProfiles();
             List<DateProfileHoursData> listOfHoursData = generationValues.ReadHoursData();
             
             Boolean moreAsking = true;
@@ -25,9 +28,9 @@ namespace ConsoleApp1
                     try
                     {
                         System.Console.WriteLine("Please input period (m/yyyy): ");
-                        string userInput = System.Console.ReadLine();
+                        string userInputString = System.Console.ReadLine();
                         string pattern = "M/yyyy";
-                        DateTime userDate = DateTime.ParseExact(userInput, pattern, CultureInfo.InvariantCulture);
+                        userDate = DateTime.ParseExact(userInputString, pattern, CultureInfo.InvariantCulture);
                         noException = true;
                     } catch (Exception e)
                     {
@@ -38,10 +41,10 @@ namespace ConsoleApp1
                 
                 int[] generated = generationValues.CheckUserInput(userDate);
 
-                System.Console.WriteLine("Date Period: {0}", userInput);
+                System.Console.WriteLine("Date Period: {0}", userDate);
                 if (generated[24] <= 0)
                 {
-                    System.Console.WriteLine("No Power Generated In Period {0}", userInput);
+                    System.Console.WriteLine("No Power Generated In Period {0}", userDate);
                 }
                 else
                 {
